@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
   # It's not clear what header files are neaded, so use the ones
   # mentioned in
   # http://tdc-www.harvard.edu/software/wcstools/subroutines/libwcs.wcs.html
+  # and then hack until things work
   #
   installPhase = ''
     mkdir -p $out/include/ $out/lib/
 
     cp wcs.h $out/include/
+    cp wcslib.h $out/include/
     cp fitshead.h $out/include/
     
     cp libwcs.a $out/lib/
