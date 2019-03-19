@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "World Coordinate System tools from wcstools";
     homepage = http://tdc-www.harvard.edu/software/wcstools/wcsprogs.html;
     license = stdenv.lib.licenses.gpl2;
-    platforms = stdenv.lib.platforms.all;
+    platforms = stdenv.lib.platforms.linux;
   };
 }

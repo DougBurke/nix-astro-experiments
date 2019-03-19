@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "World Coordinate System Subroutines from wcstools";
     homepage = http://tdc-www.harvard.edu/software/wcstools/subroutines/libwcs.wcs.html;
     license = stdenv.lib.licenses.lgpl21;
-    platforms = stdenv.lib.platforms.all;
+    platforms = stdenv.lib.platforms.linux;
   };
 }
