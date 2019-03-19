@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/format.c	2018-12-05 00:13:57.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/format.c	2019-03-18 17:10:21.840294146 -0400
+@@ -87,7 +87,7 @@
+    break;
+ 
+   default:
+-   sprintf( "Failed to parse format %s", Fortran_Format );
++   sprintf( "Failed to parse format %s", "%s", Fortran_Format );
+    ut_err_util( ut_tmp, UT_ERR_UNKNOWN_FFMT );
+    cs_copy( " ", C_Format );
+    break; 

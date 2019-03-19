@@ -1,0 +1,56 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmidd.c	2018-12-05 00:13:51.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmidd.c	2019-03-19 13:24:57.802232803 -0400
+@@ -2179,7 +2179,7 @@
+ {
+   dmDescriptor *parent = 0;
+   dmDescriptor *ddc    = 0;
+-  dmBlock      *block  = 0;
++  // dmBlock      *block  = 0;
+ 
+   long no    = 0; 
+   long i     = 0;
+@@ -2195,7 +2195,7 @@
+     dd = dd->parent;
+ 
+   no = dd->no;
+-  block = (dmBlock*)dd->block;
++  // block = (dmBlock*)dd->block;
+   parent = dmi_coord_get_parent( dd );
+ 
+   for ( i = 0; i < no-1; i++ )
+@@ -2402,7 +2402,7 @@
+ #define  DM_C_PHYSICAL 2
+ #define  DM_C_WORLD    3
+ 
+-  dmBlock      *block       = NULL;
++  // dmBlock      *block       = NULL;
+   dmDescriptor *image_dd    = NULL;
+   dmDescriptor *dd          = NULL;
+   dmDescriptor *coord_dd    = NULL;
+@@ -2424,7 +2424,7 @@
+   long  dim      = 0;
+   long  index    = 0;
+   long  subaxis  = 0;
+-  long  naxes    = 0;
++  // long  naxes    = 0;
+   long  axoffset = 0;
+   long  base     = 0;
+   long  i        = 0;
+@@ -2444,7 +2444,7 @@
+     dd = dd->parent;
+   }
+ 
+-  block = (dmBlock*)dd->block;
++  // block = (dmBlock*)dd->block;
+   dim   = dd->dim;
+ 
+   if ( dd->flag & DM_FLAG_LOGICAL )
+@@ -2470,7 +2470,7 @@
+     groupno = cdd[DM_C_LOGICAL]->no;
+     image_dd = cdd[DM_C_IMAGE];
+     axoffset = dmi_descriptor_get_group_axis( cdd[DM_C_IMAGE], groupno, 1 ) - 1;
+-    naxes = image_dd->naxes;
++    // naxes = image_dd->naxes;
+     axlen = image_dd->axes;
+ 
+     for ( subaxis = 0; subaxis < dim; subaxis++ )

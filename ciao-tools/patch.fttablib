@@ -1,0 +1,18 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/fttablib.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/fttablib.c	2019-03-19 16:50:46.896726886 -0400
+@@ -223,14 +223,13 @@
+   dmDescriptor   **rawcols = NULL;
+ 
+   long nrcols = 0;
+-  long ncols  = 0;
+ 
+   ftblock = (ftBlock*)dmi_block_get_kb( block );
+ 
+   if ( !ftblock )
+     return;
+  
+-  ncols = ftblock->ncols;
++  // ncols = ftblock->ncols;
+ 
+   /*  Go through the MTYPE keywords and figure out which are */
+   /*  columns and which are coord axes                       */

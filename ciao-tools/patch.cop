@@ -1,0 +1,93 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/cop.c	2018-12-05 00:13:55.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/cop.c	2019-03-19 13:51:37.394906724 -0400
+@@ -289,10 +289,8 @@
+ {
+  Filename filename;
+  logical append, syserr;
+- long lptr;
+ 
+  char* ptr;
+- lptr = 1;
+  ptr = buf;
+  append = (*ptr == '>' );
+  if ( append ) ptr++;
+@@ -530,7 +528,6 @@
+ 
+ void tpio_tp_out( FioFileList list, FioStack iofs, char* buf, logical append, logical syserr )
+ {
+- long out = 0;
+  FioFile file = NULL;
+ 
+  if ( cs_eq( buf, "*" ) ) {
+@@ -540,7 +537,7 @@
+  } else {
+   file = fio_list_open_file( list, buf, "SEQ W", 0 );
+  }
+- out = fio_file_fid( file );
++ (void) fio_file_fid( file );
+  fio_iostack_opush( iofs, list, file );
+  if ( syserr ) fio_stack_set_err( file );
+ }
+@@ -719,7 +716,6 @@
+  TextWord spacer;
+  long min_lev;
+  long lev;
+- char* gptr;
+  long pos;
+  TextWord eflag;
+  TextBuf disp;
+@@ -742,7 +738,7 @@
+  cs_copy( "  |                 | " , spacer );
+  min_lev = tpio->cmd_mode ? 0 : 1;
+  for ( lev = level; lev >= min_lev; lev-- ) {
+-  gptr = tpio->buffer[lev];
++   // gptr = tpio->buffer[lev];
+   if ( tpio->bptr[lev] == NULL ) {
+    pos = -1;
+    cs_copy( "Empty", eflag );
+@@ -968,15 +964,12 @@
+  TextCard clargs;  
+  FioFile in;
+  FioFile out;
+- long in_fid;
+- long out_fid;
+  TextCard buf;
+  char* ptr = NULL;
+  Filename infile;
+  Filename outfile;
+  TextWord dargs;
+  character sep[2];
+- long id;
+  FioFileList list;
+  FioStack iofs;
+  Tpio tpio;
+@@ -1004,9 +997,9 @@
+   cs_upper( dargs );
+   if ( cs_eq( dargs, "DEBUG" ) ) {
+    if ( !cs_is_blank( clargs+5 ) ) {
+-    id = cs_read_i( clargs+5 );
++    (void) cs_read_i( clargs+5 );
+    } else {
+-    id = 10;
++    // id = 10;
+    }
+    if ( ptr == NULL ) {
+     cs_copy( " ", clargs );
+@@ -1020,7 +1013,7 @@
+    cs_copy_token_esc( &ptr, sep, " ", esc, infile, FN_SIZE );
+    if ( !cs_is_blank( infile ) ) {
+     in = fio_list_open_file( list, infile, "SEQ R", 0 );
+-    in_fid = fio_file_fid( in );
++    (void) fio_file_fid( in );
+     fio_iostack_ipush( iofs, tpio, list, in );
+     if ( in ) {
+       sprintf( buf, "Opened input file %s", infile ); 
+@@ -1033,7 +1026,7 @@
+    cs_copy_token_esc( &ptr, sep, " ", esc, outfile, FN_SIZE );
+    if ( !cs_is_blank( outfile ) ) {
+     out = fio_open_aw( outfile );
+-    out_fid = fio_file_fid( out );
++    (void) fio_file_fid( out );
+     fio_iostack_opush( iofs, list, out );
+     if ( out ) { 
+       sprintf( buf, "Opened output file %s", outfile ); 

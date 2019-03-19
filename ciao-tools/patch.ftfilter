@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftfilter.c	2018-12-05 00:13:47.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftfilter.c	2019-03-19 16:46:35.638547543 -0400
+@@ -156,7 +156,7 @@
+ 
+     if (nf > 0 )
+       ptr += sprintf( ptr, " && " );
+-      ptr += sprintf( ptr, "%s<=%s", name, tmp1 );
++    ptr += sprintf( ptr, "%s<=%s", name, tmp1 );
+   }
+ 
+   if ( incnull == 1 )

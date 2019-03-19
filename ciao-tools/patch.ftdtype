@@ -1,0 +1,28 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftdtype.c	2018-12-05 00:13:47.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftdtype.c	2019-03-19 16:57:08.001900824 -0400
+@@ -89,7 +89,6 @@
+   long len  = 0;
+   long dtype_index = 0;
+   long koffset = 0;
+-  long index = 0;
+   long keyno = 0;
+   int  mask  = 0;
+  
+@@ -125,7 +124,7 @@
+         /* up entry->val which is the key number of the value key.              */
+         name = (char*)dmu_key_get_value( entry->name );
+         ftkey = entry->val;
+-        index = ftkey->index;    
++        // index = ftkey->index;    
+ 
+         if ( name )
+         {
+@@ -152,7 +151,7 @@
+       if ( !mask )
+       {
+         match = UT_TRUE;
+-        index = koffset+1;
++        // index = koffset+1;
+ 
+         if ( !name )
+         {

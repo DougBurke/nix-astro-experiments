@@ -1,0 +1,53 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftcoord.c	2018-12-05 00:13:46.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftcoord.c	2019-03-19 16:54:36.509407669 -0400
+@@ -69,7 +69,6 @@
+   long dim   = 0;
+   long cptno = 0;
+   long size  = 80;
+-  long tno   = 0;
+   long flag  = 0;
+ 
+   int ok          = 0;
+@@ -103,7 +102,7 @@
+   transform = dmi_coord_get_transform( dd );
+ 
+   dim = dmi_descriptor_get_element_dim( dd );
+-  tno = dmi_transform_get_no( transform );
++  // tno = dmi_transform_get_no( transform );
+ 
+   /* Physical flag may not be correctly propagated to cpts - oops; check it here */
+   flag = dmi_descriptor_get_flag( dd );
+@@ -166,7 +165,6 @@
+ /***************************************************************/
+ void ftp_coord_write_mtype( dmBlock *block, dmDescriptor *dd )
+ {
+-  fitsfile *fptr    = NULL;
+   ftBlock  *ftblock = NULL;
+ 
+   char  *value = NULL;
+@@ -184,7 +182,7 @@
+   dim = dmi_descriptor_get_element_dim( dd );
+   cs_copy( dmi_descriptor_get_name( dd ), mtype );
+ 
+-  fptr = ftp_fptr( block );
++  (void) ftp_fptr( block );  // does this have side effects?
+   ftblock = (ftBlock*)dmi_block_get_kb( block );
+ 
+   /* Check if this MTYPE already exists.. */
+@@ -260,7 +258,6 @@
+                              int is_physical, int ok )
+ {
+   ftCoord  *ftcoord  = NULL;
+-  fitsfile *fptr     = NULL;
+ 
+   dmBlock           *block      = NULL;
+   dmDescriptor      *pdd        = NULL; /* the parent descriptor */
+@@ -346,7 +343,7 @@
+ 
+   axis = ( ftcoord && ftcoord->axis > 0 );
+ 
+-  fptr = ftp_fptr( block );
++  (void) ftp_fptr( block );  // does this have side effects?
+   ftp_format_ctype( "CTYPE", "TCTYP", "TCTYP", ftcoord->no, ftcoord->axis, ftcoord->sub, is_image, axis, keyname );
+   
+   desc = dmi_descriptor_get_desc( dd );

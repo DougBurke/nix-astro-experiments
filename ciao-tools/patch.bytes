@@ -1,0 +1,46 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/bytes.c	2018-12-05 00:13:54.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/bytes.c	2019-03-18 17:08:16.028230532 -0400
+@@ -94,10 +94,12 @@
+  char* buf = (char*)ibuf;
+  long m;
+  long n = nn;
++#if BYTE_SWAPPED
++#else
+  long nbytes;
++#endif
+ 
+  m = size;
+- nbytes = size * n; 
+ #if BYTE_SWAPPED
+  while( n-- ) {
+   while ( m-- ) {
+@@ -108,6 +110,7 @@
+   buf += size;
+  }
+ #else
++ nbytes = size * n; 
+  memcpy( ptr, buf, nbytes );
+ #endif
+ }
+@@ -115,10 +118,12 @@
+ static void ieee_put( const char* iptr, char* buf, const long nn, const long size )
+ {
+  char* ptr = (char*)iptr;
++#if BYTE_SWAPPED
++#else
+  long nbytes;
++#endif
+  long n = nn;
+  long m;
+- nbytes = n * size;
+  m = size;
+ #if BYTE_SWAPPED
+  while( n-- ) {
+@@ -130,6 +135,7 @@
+   ptr += size;
+  }
+ #else
++ nbytes = n * size;
+  memcpy( buf, ptr, nbytes );
+ #endif
+ }

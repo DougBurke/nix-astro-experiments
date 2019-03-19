@@ -1,0 +1,19 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmicoordlib.c	2018-12-05 00:13:51.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmicoordlib.c	2019-03-19 16:35:47.819561268 -0400
+@@ -477,7 +477,6 @@
+   long    ii     = 0;              /* counter                          */
+   long    dim    = 0;              /* counter                          */
+   long    ndim   = 0;              /* dimensionality of input          */
+-  long    nvals  = 0;              /* total number of values           */
+   long    nsets  = 0;              /* number of value sets             */
+   long    offset = 0;              /* shift into array                 */
+ 
+@@ -498,7 +497,7 @@
+ 
+   mydd   = (dmDescriptor*)dd;
+   ndim   = mydd->dim;
+-  nvals  = dmi_descriptor_get_nvals( mydd );
++  // nvals  = dmi_descriptor_get_nvals( mydd );
+   nsets  = dmi_descriptor_get_array_size( mydd );
+ 
+   /* Check easy case..                        */

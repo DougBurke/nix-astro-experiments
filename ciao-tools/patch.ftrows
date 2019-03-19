@@ -1,0 +1,82 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftrows.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftrows.c	2019-03-19 16:45:55.399479723 -0400
+@@ -79,7 +79,6 @@
+   char *iptr     = NULL; 
+   char *data_ptr = NULL;
+   char *optr     = NULL;
+-  char *name     = NULL;
+ 
+   double tscal = 1.0;
+   double tzero = 0.0;
+@@ -96,10 +95,8 @@
+   long  nelts       = 0;
+   long  nbytes      = 0;   /* Bytes for a single row of a single component */
+   long  raw_row     = 0;
+-  long  stop_row    = 0;
+   long  nrows       = 0;
+   long  item_offset = 0;   /* Loop iterator */
+-  long  total_offset = 0;  /* row and col offset for varlen data */
+   long  size        = 0;   /* Size of a single scalar item */
+   long  nvals       = 0;
+   long  naxes       = 0; 
+@@ -126,7 +123,7 @@
+   if ( !vector )
+     return dmNOMOREROWS;
+ 
+-  name = dmi_descriptor_get_name( vector );
++  // name = dmi_descriptor_get_name( vector );
+   vdim = dmi_descriptor_get_element_dim( vector );
+   type = dmi_descriptor_get_datatype( vector );
+ 
+@@ -367,13 +364,13 @@
+ 
+       nelts    = nrows * nvals;
+       drows    = nrows;
+-      stop_row = row1;
++      // stop_row = row1;
+ 
+       if ( is_var )
+       {
+         memset( ptr, 0, nrows * nvals * size );
+         drows = 1;
+-        stop_row = row2;
++        // stop_row = row2;
+ 	     
+         length_dd = dmi_buffer_get_varlen_length_col( block, cpt_dd );
+ 	     
+@@ -525,7 +522,7 @@
+     }
+ 
+     if ( type == DT_LOGICAL ) {
+-      long tmp_offset, data_offset = 0;
++      long data_offset = 0;
+       long vals = 0;
+ 
+ 
+@@ -634,7 +631,6 @@
+ 
+   char **sptr = NULL; 
+   char *logical_vals = NULL;
+-  char *name         = NULL;
+   char *iptr         = NULL; 
+   char *data_ptr     = NULL;
+   char *optr         = NULL;
+@@ -642,7 +638,6 @@
+   long *axes  = NULL;
+   long *vs    = llpix;
+   long *ve    = urpix;
+-  long *dv    = NULL;
+ 
+   long  vector_buffer_size = 0;
+   long  item_offset = 0;
+@@ -676,8 +671,8 @@
+   if ( !vector )
+     return dmNOMOREROWS;
+ 
+-  dv = dpix;
+-  name = dmi_descriptor_get_name( vector );
++  // dv = dpix;
++  // name = dmi_descriptor_get_name( vector );
+  
+   vdim = dmi_descriptor_get_element_dim( vector );
+   type = dmi_descriptor_get_datatype( vector );

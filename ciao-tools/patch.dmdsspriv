@@ -1,0 +1,51 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmdsspriv.c	2018-12-05 00:13:50.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmdsspriv.c	2019-03-19 16:23:12.795093777 -0400
+@@ -60,11 +60,9 @@
+ /***************************************************************/
+ dmDescriptor* dmi_subspace_col_init( dmBlock* block, const char* total_name, dmDescriptor* col_dd, dmDataType type )
+ {
+-  int image = 0;
+   char* name = (char*)total_name;
+   char** colnames = NULL;
+   char** cptnames = NULL;
+-  char* unit = NULL;
+   long ii;
+   long dim = 1;
+   dmDescriptor* ssd = NULL; /* The returned descriptor */
+@@ -75,8 +73,10 @@
+   if ( !block )
+     return NULL;
+ 
++  /***
+   if ( col_dd && block->type == dmIMAGE && col_dd->descType == dmCOORD )
+     image = 1;
++  ***/
+ 
+   /* If total_name is provided, use it. It may be in the form  FOO(C1,C2)
+    * in which case we interpret it as a vector name with components.
+@@ -105,7 +105,7 @@
+   }
+   if ( col_dd )
+   {
+-    unit = col_dd->unit;
++    // unit = col_dd->unit;
+     type = col_dd->type;
+   }
+   if ( !name )
+@@ -684,7 +684,6 @@
+ {
+   long  rtscpt = 1;
+   dmDataType type;
+-  long dim;
+   double* lc_mins = NULL;
+   double* lc_maxes=NULL; 
+   long nf = 0;
+@@ -698,7 +697,7 @@
+   type = dmi_filter_type( filter->type );
+   if ( type != DT_REAL8 )
+    return 0;
+-  dim = filter->dim;
++  // dim = filter->dim;
+   if ( !filter->null )
+      {  
+       range = &filter->ranges[vcpt-1];

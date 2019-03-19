@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/read.c	2018-12-05 00:13:58.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/read.c	2019-03-18 17:16:35.873566188 -0400
+@@ -360,7 +360,7 @@
+ {
+   long ix;
+   double fx;
+-  char fmt[20];
++  char fmt[100];  // randomly bump up to 100 from 20
+ 
+   (void) maxlen;
+ 

@@ -1,0 +1,27 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/copenlib.c	2018-12-05 00:13:55.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/copenlib.c	2019-03-18 17:19:26.149600239 -0400
+@@ -168,7 +168,7 @@
+   return( mode_exist[mode_no] );
+  } else {
+   cs_copy( "x", mode );
+-  sprintf( "Unknown FIO mode %s", jmode );
++  sprintf( "Unknown FIO mode %s", "%s", jmode );
+   ut_err_util( ut_tmp, UT_ERR_FIO_BAD_MODE );
+   return( UT_FALSE );
+  }
+@@ -179,7 +179,6 @@
+ {
+  FioFile file = NULL;
+  FILE *file_ptr; 
+- long fid; 
+  TextWord mode;
+  Filename truefile;
+  Filename pathfile;
+@@ -193,7 +192,6 @@
+  } else {
+   cs_copy( pathfile, truefile );
+  }
+- fid = 0;
+  if ( cs_ss_char( "rwa", *mode ) ) {
+   file_ptr = fopen( truefile, mode );
+   file = fio_file_alloc( list, filename, jmode, UT_FILE_OPEN, file_ptr );

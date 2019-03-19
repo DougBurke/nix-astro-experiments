@@ -1,0 +1,22 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmicoord.c	2018-12-05 00:13:51.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmicoord.c	2019-03-19 16:20:57.541234522 -0400
+@@ -1147,7 +1147,7 @@
+   dmDescriptor     *transform_parent     = NULL;
+   dmDescriptor     *cpt_transform_parent =  NULL;
+   dmCoordTransform *ct                   = NULL;
+-  dmDescriptor     *lparent              = NULL;
++  // dmDescriptor     *lparent              = NULL;
+ 
+   long i = 0;
+  
+@@ -1156,7 +1156,9 @@
+   if ( !transform_parent )
+     return;
+ 
+-  lparent = dmi_coord_get_parent( transform_parent );
++  // As this function may have side effects, call it even though we
++  // do nothing with the return value
++  (void) dmi_coord_get_parent( transform_parent );
+ 
+   for ( i = 0; i < dd->dim; i++ )
+   {

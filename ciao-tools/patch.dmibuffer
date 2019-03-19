@@ -1,0 +1,107 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmibuffer.c	2018-12-05 00:13:51.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmibuffer.c	2019-03-19 13:22:46.998286623 -0400
+@@ -634,10 +634,12 @@
+    printf( "Block filtered rows  V %ld:%ld\n", one, block->nvrows );
+  else
+    printf( "Block filtered rows  V 0:0\n" );
+-   printf( "Buffer target rows   V %ld:%ld\n", buffer->vrow_go1, buffer->vrow_go2 );
+-   printf( "Buffer filtered rows V %ld:%ld\n",  buffer->vrow1, buffer->vrow2 );
+-   printf( "Buffer last row used V %ld\n", buffer->lastrow );
+-   printf( "Buffer current row   V %ld\n",  buffer->vrow );
++
++ // Should this be only if nvrows <= 0? 
++ printf( "Buffer target rows   V %ld:%ld\n", buffer->vrow_go1, buffer->vrow_go2 );
++ printf( "Buffer filtered rows V %ld:%ld\n",  buffer->vrow1, buffer->vrow2 );
++ printf( "Buffer last row used V %ld\n", buffer->lastrow );
++ printf( "Buffer current row   V %ld\n",  buffer->vrow );
+ }
+ 
+ 
+@@ -891,11 +893,10 @@
+ void dmi_buffer_print_hdr( dmBuffer* buffer,  char* buf )
+ {
+   dmDescriptor *dd = NULL;
+-  dmDataType    type;
++  // dmDataType    type;
+ 
+   long i        = 0;
+   long nitems   = 0;
+-  long size     = 0;
+   long tab_size = 10;
+   long m        = 0;
+   long tab      = 0;
+@@ -918,8 +919,8 @@
+       if ( nitems > 10 )
+         nitems = 10;
+ 
+-      type = dd->type;
+-      size = dmi_descriptor_get_bytes( dd );
++      // type = dd->type;
++      (void) dmi_descriptor_get_bytes( dd );
+    
+       m = strlen( buf );
+ 
+@@ -1063,7 +1064,7 @@
+ /***************************************************************/
+ void dmi_bin_map_offsets( dmBinSpec* binspec, dmDescriptor* parent_image, dmDescriptor* image )
+ {
+-  dmBlock      *block = NULL;
++  // dmBlock      *block = NULL;
+   dmDescriptor *dd    = NULL;
+   dmBinAxis    *axis  = NULL;
+ 
+@@ -1095,7 +1096,7 @@
+   else
+     n1 = n2;
+ 
+-  block = (dmBlock*)image->block;
++  // block = (dmBlock*)image->block;
+ 
+ 
+   binspec->offsets  = calloc( n2, UT_SZ_I );
+@@ -1508,15 +1509,15 @@
+   long   cast_weight_size  = 0; /* Size of casted weight data */
+   long   weight            = 0;
+   long   col_offset        = 0;
+-  long   size              = 0;
++  // long   size              = 0;
+   long   offset            = 0;
+   long   n                 = 0;
+   long   buffer_row_offset = 0;
+   long   rrow_offset       = 0;
+   long   axis_offset       = 0;
+   long   vcpt              = 0;
+-  long   group_offset      = 0;
+-  long   dvrows            = 0;
++  // long   group_offset      = 0;
++  // long   dvrows            = 0;
+   long   vrow_offset       = 0;
+ 
+   int   *state = NULL; 
+@@ -1540,7 +1541,7 @@
+   /*  Now, loop through the filtered rows calculating which */
+   /*  image pixel they correspond to.                       */
+  
+-  dvrows = 1;
++  // dvrows = 1;
+   state = calloc( nvrows_total, UT_SZ_I );
+   pixel_offset = calloc( nvrows_total, UT_SZ_I );
+ 
+@@ -1551,7 +1552,7 @@
+  
+   for ( axis_offset = 0; axis_offset < n; axis_offset++ )
+   {
+-    group_offset = binspec->groups[axis_offset];
++    // group_offset = binspec->groups[axis_offset];
+     col_offset = binspec->offsets[axis_offset];
+ 
+     if ( col_offset < 0 )
+@@ -1561,7 +1562,7 @@
+       return;
+     }
+ 
+-    size = buffer->sizes[col_offset];
++    // size = buffer->sizes[col_offset];
+     dd = buffer->cols[col_offset];
+     vcpt = binspec->vcpts[axis_offset];
+     tmin = binspec->min[axis_offset];

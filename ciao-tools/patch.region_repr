@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/region/src/region_repr.c	2018-12-05 00:14:10.000000000 -0500
++++ ciao-4.11/src/lib/region/src/region_repr.c	2019-03-18 16:23:17.864876994 -0400
+@@ -145,7 +145,7 @@
+     while (Shape) {
+         // Shapename
+         if (Shape->include == regInclude) {
+-            snprintf(shapeName, maxlen, Shape->name);
++            snprintf(shapeName, maxlen, "%s", Shape->name);
+         }
+         else {
+             snprintf(shapeName, maxlen, "-%s", Shape->name);

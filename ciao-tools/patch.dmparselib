@@ -1,0 +1,133 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmparselib.c	2018-12-05 00:13:52.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmparselib.c	2019-03-19 16:34:02.311011294 -0400
+@@ -443,7 +443,7 @@
+             {
+               list->outname = command;
+             }
+-            break;
++          break;
+ 
+         case PT_BIN:
+           if ( bin )
+@@ -1031,10 +1031,10 @@
+       col = NULL;
+     }
+ 
+-    free( name );
+-    *specp = spec;
++  free( name );
++  *specp = spec;
+ 
+-    return col;
++  return col;
+ }
+ 
+ 
+@@ -1732,19 +1732,19 @@
+             }
+           } // end else Explicit column choice
+ 
+-        if ( rename )
+-          free( rename );
+-        else
+-          if ( colname )
+-            free( colname );
+-      } /* end for loop offset */
+-
+-      /* 
+-        QQ: WHat about  "[cols pha,foo=pha]"
+-        Do we get two copies? Right now that doesn't work...
++      if ( rename )
++        free( rename );
++      else
++        if ( colname )
++          free( colname );
++    } /* end for loop offset */
++
++    /* 
++      QQ: WHat about  "[cols pha,foo=pha]"
++      Do we get two copies? Right now that doesn't work...
+         eventually want   [cols pha, foo=pha, goo= pha+pi]
+-      */
+-      ar_free_cp( entries, n );
++    */
++    ar_free_cp( entries, n );
+ 
+   } // end if ( select )
+ 
+@@ -2099,37 +2099,37 @@
+         dmi_descriptor_get_cpt_range( col, 1, DT_REAL8, (void*)&vals[0], (void*)&vals[1] );
+       }
+ 
+-      /* Round up integral TLMIN/MAX to full range */
++  /* Round up integral TLMIN/MAX to full range */
+ 
+-      /* Modify TLMIN/TLMAX,
+-       * This is to defend against old files that put the subspace range
+-       * at the integer boundary when in fact they should be +0.5
+-       * and -0.5.  This bit of code should be removed when these old
+-       * files get fixed. */
++  /* Modify TLMIN/TLMAX,
++   * This is to defend against old files that put the subspace range
++   * at the integer boundary when in fact they should be +0.5
++   * and -0.5.  This bit of code should be removed when these old
++   * files get fixed. */
+ 
+-      if ( ! is_image )
+-      {
+-        ivals = (long)vals[0];
++  if ( ! is_image )
++  {
++    ivals = (long)vals[0];
+ 
+-        if ( (double)ivals == vals[0] )
+-          vals[0] -= 0.5;
++    if ( (double)ivals == vals[0] )
++      vals[0] -= 0.5;
+ 
+-        ivals = (long)vals[1];
++    ivals = (long)vals[1];
+ 
+-        if ( (double)ivals == vals[1] )
+-          vals[1] += 0.5;
+-      }
++    if ( (double)ivals == vals[1] )
++      vals[1] += 0.5;
++  }
+ 
+-      if ( !col )
+-        vals[2] = 1.0;
+-      else
+-        if ( is_image && !( col->flag & DM_FLAG_LOGICAL ))
+-        {
+-          dmi_coord_get_transform_d( col, &pix, &val, &delt, 1 );
+-          vals[2] = delt;
+-        }
+-        else
+-          dmi_descriptor_get_cast_bin( col, DT_REAL8, (void*)&vals[2] );
++  if ( !col )
++    vals[2] = 1.0;
++  else
++    if ( is_image && !( col->flag & DM_FLAG_LOGICAL ))
++    {
++      dmi_coord_get_transform_d( col, &pix, &val, &delt, 1 );
++      vals[2] = delt;
++    }
++    else
++      dmi_descriptor_get_cast_bin( col, DT_REAL8, (void*)&vals[2] );
+ }
+ 
+ 
+@@ -2282,11 +2282,10 @@
+   double *vals = NULL;
+   long    dim  = 1;
+   long    vcpt = 0;
+-  int     image  = 0; 
+   long    retval = 0;
+ 
+ 
+-  image = ( col && block && block->type == dmIMAGE );
++  // image = ( col && block && block->type == dmIMAGE );
+ 
+   if ( col )
+   {

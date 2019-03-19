@@ -1,0 +1,20 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmiddlib.c	2018-12-05 00:13:51.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmiddlib.c	2019-03-19 16:20:19.497117977 -0400
+@@ -604,7 +604,7 @@
+                                     long *axes, long naxes )
+ {
+   dmDescriptor  *dd        = NULL; 
+-  dmDescriptor  *scaled_dd = NULL;
++  // dmDescriptor  *scaled_dd = NULL;
+   dmElementType  etype     = dmVALUE;
+ 
+   char *name    = dmi_block_get_name( block ); 
+@@ -623,7 +623,7 @@
+   dd = dmi_descriptor_alloc( block, dmCOLUMN, no, rawname, type, unit, 
+                             desc, dim, etype, naxes, axes, flag ); 
+ 
+-  scaled_dd = dmi_create_linear_wcs( block, dd, name, type, tzero, pix, tscal );
++  (void) dmi_create_linear_wcs( block, dd, name, type, tzero, pix, tscal );
+ 
+   return dd;
+ }

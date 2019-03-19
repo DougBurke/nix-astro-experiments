@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftdataset.c	2018-12-05 00:13:47.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftdataset.c	2019-03-19 16:37:17.396481193 -0400
+@@ -337,8 +337,6 @@
+ 
+ 
+ 
+-/*
+- * 
+ /***************************************************************/
+ /*                                                             */
+ /*  Function:   ftp_dataset_find_interesting_block_no          */

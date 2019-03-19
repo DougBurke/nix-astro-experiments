@@ -1,0 +1,84 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftblocklib.c	2018-12-05 00:13:46.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftblocklib.c	2019-03-19 16:49:38.229317638 -0400
+@@ -158,16 +158,12 @@
+   ftBlock    *seed_ftblock = (ftBlock*)kb;  /* For copying blocks */
+ 
+   ftDataset  *ftds        = NULL;
+-  ftBlock    *ftblock     = NULL;
+   fitsfile   *fptr        = NULL;
+   dmBlockType btype;
+   dmBlock    *block       = NULL;
+   dmBool      ascii       = dmFALSE;  /* ASCII or Binary FITS table? */
+   dmBool      have_extver = UT_FALSE;  /* EXTVER keyword to be added */
+   dmBool      create      = UT_TRUE;   /* Pass CREATE flag to BlockOpen */
+-  dmErrCode   status      = dmSUCCESS;
+-  long        blockno     = 0; /* Ignored */
+-  long        nmax        = 0;
+   long        extver      = 0;
+   long        hdu         = 0;
+   long        nrows       = 0;
+@@ -183,7 +179,7 @@
+ 
+ 
+   ftds = (ftDataset*)dmi_dataset_get_kds( ds ); 
+-  nmax = dmi_dataset_get_n( ds );
++  (void) dmi_dataset_get_n( ds );  // can this be ignored?
+ 
+   /* Reposition CFITSIO within the file */
+   hdu = no;
+@@ -202,10 +198,10 @@
+   fptr = ftds->fptr;
+ 
+   /* Create new ftBlock - care that null primary created first! */
+-  blockno = ftp_raw_block_alloc( ds, hdu, type, name );
++  (void) ftp_raw_block_alloc( ds, hdu, type, name );
+   block   = ftp_block_open( ds, hdu, create, hint );
+  
+-  ftblock = (ftBlock*)dmi_block_get_kb( block );
++  (void) dmi_block_get_kb( block );
+ 
+   dmi_block_set_type( block, type );
+   dmi_block_set_name( block, name );
+@@ -218,7 +214,7 @@
+ 
+   /* Set user defined parameters */
+   if ( hint )
+-     status =  ftp_set_hint_list( block, hint, dmFALSE );
++    (void) ftp_set_hint_list( block, hint, dmFALSE );
+ 
+ 
+   /* This forces making an ASCII table copying from one. May want to do */
+@@ -343,7 +339,6 @@
+ {
+   dmBlock   *block   = NULL;
+   ftBlock   *ftblock = NULL;
+-  dmErrCode  status  = dmSUCCESS;
+ 
+ 
+   /* Alloc block here */
+@@ -364,7 +359,7 @@
+   ftblock->cols    = NULL;
+ 
+   if ( hint )
+-    status = ftp_set_hint_list( block, hint, dmTRUE );
++    (void) ftp_set_hint_list( block, hint, dmTRUE );
+ 
+   return block;
+ }
+@@ -390,7 +385,6 @@
+ /***************************************************************/
+ void ftp_block_init( dmBlock* block, const dmBool create )
+ {
+-  int       status  = 0;
+   ftBlock  *ftblock = NULL;
+ 
+   /* We duplicate the hdutype info in ftblock and ftds for convenience */
+@@ -404,7 +398,7 @@
+   ftp_block_read_header( block );
+ 
+   /* -- Old ftpOpenTab ftpOpenImg -- */
+-  status = ftp_table_open( block, create );
++  (void) ftp_table_open( block, create );
+ 
+   if ( dmverbose > 4 )
+     printf( "***** Find Transforms \n" );

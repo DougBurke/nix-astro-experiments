@@ -1,0 +1,94 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmsubspace.c	2018-12-05 00:13:52.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmsubspace.c	2019-03-19 16:25:32.942839390 -0400
+@@ -989,34 +989,34 @@
+     /* If we looped through each subspace column and found no more than one
+      * discrepancy we can merge the components */
+ 
+-    if(lNumDiffs <2 && CptNo > 1 )
++  if(lNumDiffs <2 && CptNo > 1 )
++  {
++    if ( dmverbose >= 5 && !null1 )
+     {
+-      if ( dmverbose >= 5 && !null1 )
+-      {
+-        fprintf( stderr, "Component %ld collapsed to component %ld on var %s\n",
+-                CptNo, CompareCptNo, ddname );
+-        dmi_subspace_print_cpt( subspace, CptNo );
+-        dmi_subspace_print_cpt( subspace, CompareCptNo );
+-      }
+-
+-      dmi_filter_combine( SavedCompareFilter, SavedCptFilter );
++      fprintf( stderr, "Component %ld collapsed to component %ld on var %s\n",
++              CptNo, CompareCptNo, ddname );
++      dmi_subspace_print_cpt( subspace, CptNo );
++      dmi_subspace_print_cpt( subspace, CompareCptNo );
++    }
+ 
+-      if ( dmverbose >= 5 && !null1  )
+-      {
+-        fprintf( stderr, "Post combine \n" );
+-        dmi_subspace_print_cpt( subspace, CompareCptNo );
+-      }
++    dmi_filter_combine( SavedCompareFilter, SavedCptFilter );
+ 
+-      dmi_subspace_combine_tabnames( subspace, CptNo, CompareCptNo );
+-      /* Remove component which was just merged with source component */
+-      Collapse = 1;
++    if ( dmverbose >= 5 && !null1  )
++    {
++      fprintf( stderr, "Post combine \n" );
++      dmi_subspace_print_cpt( subspace, CompareCptNo );
+     }
+ 
+-   if ( Collapse || CollapseAnyway )
+-   {
+-      dmi_subspace_remove_cpt( subspace, CptNo );
+-      return 1;
+-   }
++    dmi_subspace_combine_tabnames( subspace, CptNo, CompareCptNo );
++    /* Remove component which was just merged with source component */
++    Collapse = 1;
++  }
++
++  if ( Collapse || CollapseAnyway )
++  {
++     dmi_subspace_remove_cpt( subspace, CptNo );
++     return 1;
++  }
+ 
+   return 0;
+ }
+@@ -1951,7 +1951,6 @@
+ dmDescriptor* dmi_column_get_ss( dmBlock* pBl, dmDescriptor* col, long* cpt )
+ {
+   dmDescriptor *dssDesc = NULL;
+-  dmFilter     *filter  = NULL;
+   dmDescriptor *dd      = NULL;
+   long          cptno   = 1;
+ 
+@@ -2004,7 +2003,7 @@
+       dssDesc = dssDesc->parent;
+     }
+   
+-    filter = dmi_subspace_col_get_filter( dssDesc, 1 );    
++    (void) dmi_subspace_col_get_filter( dssDesc, 1 );    
+   }
+ 
+   *cpt = cptno;
+@@ -2317,7 +2316,6 @@
+   long   NumberOfClauses = 0;
+   long   stackSize = 10;
+   int    ii        = 0;
+-  int    retval    = 0; 
+ 
+   // if no editing commands, return
+   if ( !comstr || *comstr == '\0' ) 
+@@ -2330,7 +2328,7 @@
+   dmi_parse_clause_stack( comstr, parseStack);
+ 
+   // parse commands into its parts
+-  retval = dmi_parse_clause_line( comstr, parseStack);
++  (void) dmi_parse_clause_line( comstr, parseStack);
+ 
+   // place each command clause as an entry into a list
+   clauseList = dmi_parse_stack_eval(parseStack);

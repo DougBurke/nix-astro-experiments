@@ -1,0 +1,45 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftwcs.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftwcs.c	2019-03-19 16:56:24.052913025 -0400
+@@ -864,7 +864,6 @@
+ 
+   dmDescriptor      *dd    = NULL;
+   dmDescriptor      *col   = NULL;
+-  dmCoordTransform  *coord = NULL;
+   dmDataType         dtype = DT_REAL8;
+   dmElementType      etype = dmVALUE;
+   dmBool             composite = dmFALSE;
+@@ -963,7 +962,7 @@
+     ftcoord = ftp_coord_alloc();
+     dd = dmi_descriptor_alloc( block, dmCOORD, no, name, dtype, unit, 
+ 			       desc, vdim, etype, naxes, axes, DM_FLAG_COORD );  
+-    coord = dmi_coord_transform_alloc( dd, transform, &val, &pix, &delt, dim );
++    (void) dmi_coord_transform_alloc( dd, transform, &val, &pix, &delt, dim );
+     dmi_descriptor_set_kdd( dd, ftcoord );
+   }
+ 
+@@ -1375,7 +1374,6 @@
+ 
+   long ncoord;
+   long ngroup;
+-  long dim;
+ 
+   long ii;
+   long kk;
+@@ -1424,7 +1422,7 @@
+       dd = dmi_descriptor_get_group_no( col, ii );
+       if ( dd )
+       {
+-	dim = dmi_descriptor_get_element_dim( dd );
++	// dim = dmi_descriptor_get_element_dim( dd );
+ 	ftcoord = dmi_descriptor_get_kdd( dd );
+ 
+ 	if ( ftcoord && 
+@@ -1443,7 +1441,7 @@
+ 	{
+ 	  coord_dd = dmi_descriptor_get_coord_no( dd, kk );
+ 	  ftcoord = dmi_descriptor_get_kdd( coord_dd );
+-	  dim = dmi_descriptor_get_element_dim( coord_dd );
++	  // dim = dmi_descriptor_get_element_dim( coord_dd );
+ 	  
+ 	  if ( ftcoord && 
+ 	       ( ftcoord->no == colno ) && 

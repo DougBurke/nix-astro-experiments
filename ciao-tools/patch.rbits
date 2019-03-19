@@ -1,0 +1,50 @@
+--- ../ciao-4.11/src/lib/datamodel/nutils/rbits.c	2018-12-05 00:13:58.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/nutils/rbits.c	2019-03-19 13:46:34.140989661 -0400
+@@ -805,10 +805,9 @@
+ {
+   short value;
+   long bits[UT_BITS_MAX];
+-  long n;
+ 
+   ar_zero_i( bits, UT_BITS_MAX );
+-  n = bit_read( buf, bits, mode );
++  (void) bit_read( buf, bits, mode );
+   value = bit_ar_set_s( bits );
+   return( value );
+ }
+@@ -835,10 +834,9 @@
+ {
+   long value;
+   long bits[UT_BITS_MAX];
+-  long n;
+ 
+   ar_zero_i( bits, UT_BITS_MAX );
+-  n = bit_read( buf, bits, mode );
++  (void) bit_read( buf, bits, mode );
+   value = bit_ar_set_i( bits );
+   return( value );
+ }
+@@ -865,10 +863,9 @@
+ {
+   float value;
+   long bits[UT_BITS_MAX];
+-  long n;
+ 
+   ar_zero_i( bits, UT_BITS_MAX );
+-  n = bit_read( buf, bits, mode );
++  (void) bit_read( buf, bits, mode );
+   value = bit_ar_set_r( bits );
+   return( value );
+ }
+@@ -895,10 +892,9 @@
+ {
+   double value;
+   long bits[UT_BITS_MAX];
+-  long n;
+ 
+   ar_zero_i( bits, UT_BITS_MAX );
+-  n = bit_read( buf, bits, mode );
++  (void) bit_read( buf, bits, mode );
+   value = bit_ar_set_d( bits );
+   return( value );
+ }

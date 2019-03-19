@@ -1,0 +1,19 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftscan.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftscan.c	2019-03-19 16:38:21.661991025 -0400
+@@ -123,7 +123,6 @@
+   dmBlockType type;
+   char       *name = NULL;
+ 
+-  long blockno = 0;
+   long current = 1;
+   long no      = 0;
+   int ftstatus = FITS_KERNEL_OK;
+@@ -145,7 +144,7 @@
+       no = current;
+       name    = ftp_read_block_name( ftds->fptr, ftds->current );
+       type    = ftp_block_type( fthdutype );
+-      blockno = ftp_raw_block_alloc( ds, no, type, name );
++      (void) ftp_raw_block_alloc( ds, no, type, name );
+       ftp_dataset_add_block( ds, no, fthdutype );
+       free( name );
+       ftds->current++;

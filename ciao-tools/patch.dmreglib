@@ -1,0 +1,22 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmreglib.c	2018-12-05 00:13:52.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmreglib.c	2019-03-19 16:33:13.896135542 -0400
+@@ -1001,8 +1001,6 @@
+   long  offset     = 0;
+   long  xpix       = 0;
+   long  ypix       = 0;
+-  long  min_axisoffset = 0;
+-  long  max_axisoffset = 0;
+   long  naxes      = 0;
+   long  first_axis = 0;
+   long  last_axis  = 0;
+@@ -1029,8 +1027,8 @@
+ 
+   dmRegionIterateInit( image->block, &iter, v_llpix[xaxis_offset], v_llpix[yaxis_offset], v_urpix[xaxis_offset], v_urpix[yaxis_offset], region, invert );
+ 
+-  min_axisoffset = ( xaxis_offset < yaxis_offset ? xaxis_offset : yaxis_offset );
+-  max_axisoffset = ( min_axisoffset == xaxis_offset ? yaxis_offset : xaxis_offset );
++  // min_axisoffset = ( xaxis_offset < yaxis_offset ? xaxis_offset : yaxis_offset );
++  // max_axisoffset = ( min_axisoffset == xaxis_offset ? yaxis_offset : xaxis_offset );
+  
+   first_axis = 0;
+ 

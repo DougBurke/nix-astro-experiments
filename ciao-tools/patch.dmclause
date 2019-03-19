@@ -1,0 +1,11 @@
+--- ../ciao-4.11/src/lib/datamodel/dmi/dmclause.c	2018-12-05 00:13:50.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/dmi/dmclause.c	2019-03-19 16:34:29.602377559 -0400
+@@ -298,7 +298,7 @@
+     entry1 = &stack->entry[arg1-1];
+ 
+     if ( entry1->op == ConstOp && entry1->ptr )
+-      sprintf( outstr, entry1->ptr );
++      sprintf( outstr, "%s", entry1->ptr ); // NO IDEA WHAT format to use
+     else
+       sprintf( outstr, "#%ld", arg1 );
+   }

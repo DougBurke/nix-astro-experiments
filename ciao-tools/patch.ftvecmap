@@ -1,0 +1,19 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftvecmap.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftvecmap.c	2019-03-19 16:51:37.036565344 -0400
+@@ -657,7 +657,6 @@
+   long mtype_offset = 0;
+   long cpt_offset   = 0;      /* Offset of component within element */
+   long mcpt_offset  = 0;      /* Offset of component name in MFORM list */
+-  long cptno        = 0;
+   long dim          = 0;
+   long ncols        = 0; 
+   long maxlen = CARD_SIZE;
+@@ -683,7 +682,7 @@
+     for ( cpt_offset = 0; cpt_offset < dim; cpt_offset++ )
+     {
+        mcpt_offset = cpt_offset;
+-       cptno  = cpt_offset + 1;
++       // cptno  = cpt_offset + 1;
+        ar_alias_get_cpt( mlist->names, mtype_offset, mcpt_offset, cptname, maxlen );
+        cpts[cpt_offset] =  dmi_descriptor_list_search( (const dmDescriptor**)cols, ncols, cptname );
+        if ( !cpts[cpt_offset] )

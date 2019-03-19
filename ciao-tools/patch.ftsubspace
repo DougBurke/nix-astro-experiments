@@ -1,0 +1,53 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftsubspace.c	2018-12-05 00:13:48.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftsubspace.c	2019-03-19 16:53:13.700326028 -0400
+@@ -183,7 +183,6 @@
+                                 char *value, char *tabname )
+ {
+   dmBlock    *block = NULL;
+-  dmuKeyList  keylist;
+   dmDataType  type;
+   dmDescriptorType dtype;
+   
+@@ -222,7 +221,7 @@
+   do_table = !cs_is_blank( tabname );
+   block    = (dmBlock*)dmi_descriptor_get_block( dd );
+   ftblock  = (ftBlock*)dmi_block_get_kb( block );
+-  keylist  = ftblock->keylist;
++  // keylist  = ftblock->keylist;
+   
+   
+   ftss = ftp_get_ftss( block, dd, -1 );
+@@ -353,7 +352,6 @@
+   char  checksum[80];
+   char *name = NULL;
+   
+-  long dim = 2;
+   long i   = 0;
+   long no  = 0;
+   int  ftstatus    = 0;
+@@ -389,7 +387,7 @@
+   if ( !dmi_dataset_mode( ds ))   /* WRITE TO FILE */
+     return;
+ 
+-  dim = dmi_descriptor_get_element_dim( dd );
++  // dim = dmi_descriptor_get_element_dim( dd );
+   
+   ftp_block_reset( parent_block );
+   fptr = ftp_fptr( parent_block );
+@@ -643,7 +641,6 @@
+ {
+   dmDescriptor   *dd   = NULL;
+   dmDescriptor  **list = NULL;
+-  dmSubspace     *subspace = NULL;
+   dmuKey         *ftkey = NULL;
+   dmDataset      *ds    = NULL;
+   dmuKeyList      keylist;
+@@ -744,7 +741,7 @@
+    * If it's an image, we should do it for the axis groups...
+    */
+   dmi_block_make_default_subspace( block, maxcpt );
+-  subspace = dmi_block_get_subspace( block );
++  (void) dmi_block_get_subspace( block );
+  
+  /*
+    *  Pass 2: Look for DSTYP keywords and assign them

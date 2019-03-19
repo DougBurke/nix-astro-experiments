@@ -1,0 +1,30 @@
+--- ../ciao-4.11/src/lib/datamodel/ftkernel/ftkernel.c	2018-12-05 00:13:47.000000000 -0500
++++ ciao-4.11/src/lib/datamodel/ftkernel/ftkernel.c	2019-03-19 16:41:06.559171010 -0400
+@@ -257,12 +257,10 @@
+ /***************************************************************/
+ dmErrCode ftBlockClose( dmBlock* block )
+ {
+-  ftBlock *ftblock = NULL;
+-
+   if ( !block )
+     return dmSUCCESS;
+ 
+-  ftblock = (ftBlock*)dmi_block_get_kb( block );
++  (void) dmi_block_get_kb( block ); // does this have side effects?
+   ftp_block_close( block );
+ 
+   return dmSUCCESS;
+@@ -579,12 +577,11 @@
+ {
+   long          i     = 0;
+   dmDescriptor *dd    = NULL;
+-  dmDataset    *ds    = NULL;
+   long          ncols = 0;
+   long          ncpts = 0;
+ 
+ 
+-  ds    = (dmDataset*)dmi_block_get_ds( block );
++  (void) dmi_block_get_ds( block );  // does this have side effects?
+   ncpts = dmi_subspace_get_ncpts( rts );
+ 
+   if ( ncpts != 1 ) /* No rts or complicated rts */
