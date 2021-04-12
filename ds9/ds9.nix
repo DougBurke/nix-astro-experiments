@@ -1,36 +1,29 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib
+, fetchFromGitHub
 , file, which, zip
 , autoconf, libtool
 , gfortran, perl
 , libX11, libXft, zlib, libxml2, libxslt
-, openssl_1_0_2
-, tcl, tk }:
+, tcl }:
 
-#, autoconf, automake, libtool
-
-# SAOImageDS9 requires openssl 1.0.x, not 1.1.x.
+# SAOImageDS9 build. There is support for building on macOS but
+# it has not been tested.
 #
 stdenv.mkDerivation rec {
 
   name = "ds9-${version}";
-  version = "8.1b1";
+  version = "8.3b1";  # what is the best label for a dev build?
 
   src = fetchFromGitHub {
     owner = "SAOImageDS9";
     repo = "SAOImageDS9";
-    rev = "1eba519fa1da36b081a2a0c4e6fd82fe872d4038";
-    sha256 = "009fvr6mjr73np2rg82nykjgq3blwh50ykj2cgq5spwckcnrrarq";
+    rev = "3836320650b9ca8fdeee012334ba100ad6bff4c2";
+    sha256 = "0n0hxazi2jamnz01wcvblnjh2ld7qwmgqlmgwnjyn9b3l9ca6v96";
+    fetchSubmodules = true;
   };
 
-  # try and hack the build
-  patches = [
-    ./nix-build.patch
-  ];
-
-  # It is easiest for me (at the moment) to have the Makefile patch
-  # use `which xml2-config` rather than try and do this "properly"
-  # (maybe by having the patch add in @foo@ which is then changed in
-  # the preConfigure step)
+  # I still don't understand the difference between nativeBuildInputs
+  # and buildInputs.
   #
   nativeBuildInputs = [
     file which zip
@@ -38,41 +31,24 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  # I have not spent the time to work out whether any of these can
-  # go into one of the other *Inputs attributes; that is, I am sticking
-  # everything in buildInputs
-  #
   buildInputs = [
-    libX11 libXft zlib libxml2 libxslt openssl_1_0_2 tcl tk
+    libX11 libXft zlib libxml2 libxslt
+    tcl
     perl
   ];
 
-  # I don't understand why it is only funtools/mkconfigure that needs
-  # this replacement
+  # With changes in ds9 8.3 we need to do a lot less mangling of the build.
   #
-  preConfigure = ''
-    export TLSFLAGS="--with-ssl-dir=${openssl_1_0_2.dev}"
-
-    substituteInPlace tksao/configure --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
-
-    substituteInPlace funtools/mkconfigure --replace /bin/bash $SHELL
-
-  '';
-  postConfigure = ''
-    TLSFLAGS=
-  '';
-  configureScript = "unix/configure";
+  configureScript = (if stdenv.isDarwin then "macos" else "unix") + "/configure";
   
-  # I think at least one piece of code needs this, so just apply it
-  # to everything for now.
+  # I am sure this was needed, but apparently not now. I have left it commented
+  # out in case ot "things".
   #
-  hardeningDisable = [ "format" ];
+  ## hardeningDisable = [ "format" ];
 
   installPhase = ''
-    echo "*** In install phase"
     mkdir -p $out/bin
     for x in ds9 xpaaccess xpaget xpainfo xpamb xpans xpaset ; do
-      echo "*** copying $x"
       cp bin/$x $out/bin
     done
 
@@ -88,8 +64,6 @@ stdenv.mkDerivation rec {
   #
   dontStrip = true;
   
-  # It can build on macOS systems but I haven't tried it.
-  #
   meta = {
     description = "Interactive data visualization (focusing on Astronomy)";
     longDescription = ''
@@ -115,11 +89,11 @@ stdenv.mkDerivation rec {
     the command line.
 
     The XPA command-line tools are currently included, since they allow
-    communicatiob between DS9 and external programs. This may change.
+    communication between DS9 and external programs. This may change.
     '';
 
-    homepage = http://ds9.si.edu/site/Home.html;
-    license = stdenv.lib.licenses.gpl3;
-    platforms = stdenv.lib.platforms.linux;
+    homepage = http://ds9.si.edu/;
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.linux;
   };
 }
