@@ -9,6 +9,17 @@
 # SAOImageDS9 build. There is support for building on macOS but
 # it has not been tested.
 #
+# Currently nixpkgs has tcl/tk 8.6.9. Can we use this rather than
+# the versions provided with DS9? I don't know enough of the
+# tcl ecosystem to understant whether the other tcl packages,
+# such as tcizipfs, are available in nixpkgs so I will just build
+# them. However, DS9 8.3b1 uses tcl/tk version 8.6.10 so I will
+# hold off on this just now (look at the make.include file for
+# versions).
+#
+# Since DS9 uses an old version of openssl we do not try to
+# replace that with the nixpkgs version.
+#
 stdenv.mkDerivation rec {
 
   name = "ds9-${version}";
@@ -40,7 +51,7 @@ stdenv.mkDerivation rec {
   # With changes in ds9 8.3 we need to do a lot less mangling of the build.
   #
   configureScript = (if stdenv.isDarwin then "macos" else "unix") + "/configure";
-  
+
   # I am sure this was needed, but apparently not now. I have left it commented
   # out in case ot "things".
   #
